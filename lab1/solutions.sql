@@ -1,9 +1,13 @@
 -- 1
-select avg(p.price * od.quantity) as avgOrderPrice, o.date as dateOfOrder
-from order_details as od
-join pizzas as p on p.pizza_id = od.pizza_id 
-join orders as o on o.order_id = od.order_id 
-group by o.date having o.date = '2015-02-18'
+with tmp as (
+	select sum(p.price * od.quantity) as totalPrice
+	from pizzas as p 
+	join order_details as od on p.pizza_id = od.pizza_id
+	join orders as o on o.order_id = od.order_id
+	where o.date like '2015-02-18'
+	group by o.order_id)
+
+select avg(totalPrice) as avgPrice from tmp
 
 -- 2
 with tmp as(
