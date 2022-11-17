@@ -29,7 +29,7 @@ from  (
   where year(OrderDate) = 2011
   group by month(OrderDate),SalesTerritoryKey
 ) as SourceTable  
-PIVOT  
+pivot
 (  
   sum(SalesAmount)  
   for SalesTerritoryKey IN ([0],[1],[2],[3],[4],[5],[6],[7],[8],[9],[10]) 
